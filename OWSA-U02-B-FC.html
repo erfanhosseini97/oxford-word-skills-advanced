@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#6d45c5">
+<title>OWSA · Less Familiar Meanings · Flashcards</title>
+<style>
+:root{--ink:#211b35;--purple:#6d45c5;--deep:#38236e;--mint:#b8f3dc;--peach:#ffd2bd;--paper:#fffdfb}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:radial-gradient(circle at 12% 8%,#e7dcff 0,transparent 30%),radial-gradient(circle at 90% 85%,#ffe0d2 0,transparent 28%),linear-gradient(135deg,#f8f5ff,#fff9f4);display:flex;justify-content:center;padding:24px 14px 36px}
+main{width:min(720px,100%)}header{text-align:center;margin:8px 0 22px} .eyebrow{font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;font-weight:800;color:var(--purple)}h1{font-size:clamp(1.55rem,5vw,2.25rem);margin:8px 0 6px;line-height:1.12}header p{margin:0;color:#665d78;font-size:.96rem}
+.topline{display:flex;justify-content:space-between;gap:12px;align-items:center;font-size:.88rem;font-weight:700;color:#655a7a;margin:0 2px 10px}
+.progress{height:7px;background:#e8e1f3;border-radius:20px;overflow:hidden;margin-bottom:17px}.bar{height:100%;width:0;background:linear-gradient(90deg,#7955d6,#62cba6);transition:width .25s}
+.card-wrap{perspective:1200px;min-height:310px;cursor:pointer;outline:none}.card{position:relative;min-height:310px;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.2,.7,.2,1)}.card.flipped{transform:rotateY(180deg)}.face{position:absolute;inset:0;backface-visibility:hidden;border:1px solid #ffffffc9;border-radius:27px;box-shadow:0 18px 50px #44316b1a;padding:30px 25px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:var(--paper)}.front{background:linear-gradient(145deg,#fff,#f5f0ff)}.back{transform:rotateY(180deg);background:linear-gradient(145deg,#f1fff9,#fffaf6);justify-content:flex-start;overflow:auto}.tag{font-size:.73rem;letter-spacing:.12em;text-transform:uppercase;font-weight:800;color:var(--purple);margin-bottom:18px}.phrase{font-size:clamp(1.8rem,7vw,2.8rem);font-weight:850;line-height:1.12;letter-spacing:-.04em}.ipa{font-size:1rem;color:#786e8c;margin-top:14px}.hint{font-size:.85rem;color:#8a8199;margin-top:25px}.meaning-label{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;font-weight:800;color:#28775c;margin-bottom:8px}.meaning{font-size:clamp(1.12rem,4vw,1.42rem);font-weight:750;line-height:1.4;margin-bottom:20px}.example{width:100%;text-align:left;background:#ffffffb8;border:1px solid #e2eee8;border-radius:16px;padding:15px 17px;line-height:1.5}.example strong{color:#4c3588}.translation{color:#6d6178;margin-top:7px;font-size:.95rem}.controls{display:grid;grid-template-columns:1fr 1.2fr 1fr;gap:9px;margin-top:17px}.btn{border:0;border-radius:14px;padding:13px 10px;font-size:.95rem;font-weight:800;cursor:pointer;transition:transform .12s,opacity .12s}.btn:active{transform:scale(.98)}.secondary{background:#fff;color:#4c3a70;border:1px solid #e7def3}.primary{background:var(--purple);color:white}.mastered{display:flex;align-items:center;justify-content:center;gap:9px;margin:15px auto 0;color:#5c526e;font-size:.9rem;font-weight:650}.mastered input{accent-color:#38a67e;width:18px;height:18px}.foot{display:flex;justify-content:space-between;gap:10px;margin-top:18px;color:#81778e;font-size:.78rem}.kbd{border:1px solid #d9d0e8;background:#ffffffa8;padding:3px 7px;border-radius:6px}
+@media(max-width:480px){body{padding:18px 12px 28px}.face{padding:24px 18px}.card-wrap,.card{min-height:330px}.controls{grid-template-columns:1fr 1.2fr 1fr}.btn{font-size:.85rem;padding:12px 5px}.example{padding:13px}}
+</style>
+</head>
+<body><main>
+<header><div class="eyebrow">Oxford Word Skills · Advanced</div><h1>Less Familiar Meanings</h1><p>Unit vocabulary · Interactive flashcards</p></header>
+<div class="topline"><span id="counter">Card 1 of 10</span><span id="mastery">0 mastered</span></div><div class="progress"><div class="bar" id="bar"></div></div>
+<div class="card-wrap" id="cardWrap" role="button" tabindex="0" aria-label="Flip flashcard">
+<div class="card" id="card">
+<section class="face front"><div class="tag">Remember the meaning</div><div class="phrase" id="frontPhrase"></div><div class="ipa" id="frontNote"></div><div class="hint">Tap the card or choose “Show answer”</div></section>
+<section class="face back"><div class="tag">Meaning &amp; example</div><div class="meaning-label">Meaning</div><div class="meaning" id="meaning"></div><div class="example"><div><strong>Example:</strong> <span id="example"></span></div><div class="translation" id="translation"></div></div></section>
+</div></div>
+<div class="controls"><button class="btn secondary" id="prev">← Previous</button><button class="btn primary" id="flip">Show answer</button><button class="btn secondary" id="next">Next →</button></div>
+<label class="mastered"><input type="checkbox" id="known"> I know this meaning</label>
+<div class="foot"><span>Progress is saved on this device</span><span><span class="kbd">←</span> <span class="kbd">→</span> navigate · <span class="kbd">Space</span> flip</span></div>
+</main>
+<script>
+const cards=[
+{phrase:"get somebody/something to do something",note:"verb pattern",meaning:"Make or persuade somebody/something to do something.",fa:"وادار کردن یا متقاعد کردن کسی/چیزی به انجام کاری",example:"I finally got him to admit that he was wrong.",translation:"بالاخره او را راضی کردم که بپذیرد اشتباه کرده است."},
+{phrase:"keep somebody going / keep going",note:"verb phrase",meaning:"Keep something fresh; or provide enough for somebody until a later time.",fa:"تازه نگه داشتن؛ یا تأمین کردنِ نیاز کسی تا زمان بعدی",example:"A sandwich should keep me going until dinner.",translation:"یک ساندویچ باید تا وقت شام نگهم دارد و گرسنه نشوم."},
+{phrase:"put something",note:"verb",meaning:"Say or write something in a particular way.",fa:"چیزی را به شکل یا با عبارت‌بندی خاصی بیان کردن یا نوشتن",example:"I don't know how to put this, but your work needs improvement.",translation:"نمی‌دانم چطور این را بیان کنم، اما کارت به بهبود نیاز دارد."},
+{phrase:"push somebody",note:"verb phrase",meaning:"Make somebody work harder.",fa:"کسی را وادار کردن سخت‌تر تلاش کند",example:"A good coach knows how to push athletes without exhausting them.",translation:"مربی خوب می‌داند چطور ورزشکاران را به تلاش بیشتر وادارد، بدون اینکه فرسوده‌شان کند."},
+{phrase:"leave something to/with somebody",note:"verb pattern",meaning:"Allow somebody to take care of something.",fa:"رسیدگی به چیزی را به کسی سپردن",example:"I'll leave the decision to you.",translation:"تصمیم‌گیری را به تو می‌سپارم."},
+{phrase:"make something something",note:"verb pattern",meaning:"Think or calculate something to be a particular time or number.",fa:"زمان یا عددی را برای چیزی در نظر گرفتن یا محاسبه کردن",example:"The journey should take an hour, so let's make it two to be safe.",translation:"سفر باید یک ساعت طول بکشد؛ برای اطمینان دو ساعت در نظر بگیریم."},
+{phrase:"bring somebody somewhere",note:"verb pattern",meaning:"Cause somebody to reach a particular condition or place.",fa:"باعث شدن کسی به وضعیت یا مکان مشخصی برسد",example:"Years of hard work brought her to the top of her profession.",translation:"سال‌ها تلاش او را به بالاترین جایگاه حرفه‌اش رساند."},
+{phrase:"come with",note:"verb phrase",meaning:"Be supplied or included with something.",fa:"همراهِ چیزی عرضه شدن یا جزئی از آن بودن",example:"The laptop comes with a two-year warranty.",translation:"این لپ‌تاپ با ضمانت دوساله عرضه می‌شود."},
+{phrase:"come in",note:"verb phrase",meaning:"Be available or produced in a particular form, size, colour, or type.",fa:"در شکل، اندازه، رنگ یا نوع مشخصی موجود یا تولید شدن",example:"These trainers come in three different colours.",translation:"این کفش‌های ورزشی در سه رنگ مختلف عرضه می‌شوند."},
+{phrase:"do for somebody/something",note:"verb phrase",meaning:"Be enough or be acceptable in a particular situation.",fa:"برای کسی/چیزی کافی یا در موقعیتی قابل‌قبول بودن",example:"This small room will do for a couple of nights.",translation:"این اتاق کوچک برای یکی دو شب کافی است."}
+];
+let index=0, flipped=false; const mastered=new Set();
+const $=id=>document.getElementById(id);
+function render(){const c=cards[index];$('frontPhrase').textContent=c.phrase;$('frontNote').textContent=c.note;$('meaning').innerHTML=c.meaning+'<br><span style="font-size:.88em;font-weight:600;color:#655a78">'+c.fa+'</span>';$('example').textContent=c.example;$('translation').textContent=c.translation;$('counter').textContent=`Card ${index+1} of ${cards.length}`;$('mastery').textContent=`${mastered.size} mastered`;$('bar').style.width=`${mastered.size/cards.length*100}%`;$('known').checked=mastered.has(index);$('card').classList.toggle('flipped',flipped);$('flip').textContent=flipped?'Hide answer':'Show answer';}
+function flip(){flipped=!flipped;render()}function go(n){index=(n+cards.length)%cards.length;flipped=false;render()}
+$('cardWrap').addEventListener('click',flip);$('cardWrap').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();flip()}});
+$('flip').onclick=flip;$('prev').onclick=()=>go(index-1);$('next').onclick=()=>go(index+1);
+$('known').onchange=e=>{if(e.target.checked)mastered.add(index);else mastered.delete(index);try{localStorage.setItem('owsa-less-familiar-mastered',JSON.stringify([...mastered]))}catch{}render()};
+try{JSON.parse(localStorage.getItem('owsa-less-familiar-mastered')||'[]').forEach(n=>{if(Number.isInteger(n)&&n>=0&&n<cards.length)mastered.add(n)})}catch{}
+document.addEventListener('keydown',e=>{if(e.target.tagName==='INPUT')return;if(e.key==='ArrowRight')go(index+1);if(e.key==='ArrowLeft')go(index-1);if(e.code==='Space'){e.preventDefault();flip()}});
+render();
+</script></body></html>
