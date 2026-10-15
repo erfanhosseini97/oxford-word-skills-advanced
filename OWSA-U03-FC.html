@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OWSA-U03-FC | I can use compounds</title>
+<style>
+:root{--ink:#22243a;--purple:#6556b8;--purple2:#8779d8;--mint:#c9f2e5;--peach:#ffe0ce;--paper:#fbfaff;--muted:#77758b}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(135deg,#f4f0ff,#f0fbf7 58%,#fff5ed);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;color:var(--ink);min-height:100vh;display:flex;justify-content:center;padding:20px}
+.app{width:min(760px,100%);margin:auto}
+header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px}
+.kicker{font-size:12px;letter-spacing:.08em;color:var(--purple);font-weight:800;direction:ltr;text-align:right}
+h1{font-size:clamp(23px,5vw,32px);margin:5px 0 6px;line-height:1.2}
+.subtitle{color:var(--muted);font-size:14px;line-height:1.7}
+.pill{background:#fff;border:1px solid #e6e1fa;border-radius:999px;padding:8px 12px;font-size:12px;white-space:nowrap}
+.stats{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:14px 0}
+.stat{background:#ffffffb8;border:1px solid #e8e4f5;border-radius:12px;padding:9px 12px;font-size:13px}
+.progress{height:7px;background:#e7e3f4;border-radius:99px;overflow:hidden;flex:1;min-width:100px}
+.bar{height:100%;width:0;background:linear-gradient(90deg,var(--purple),#72c9ad);transition:width .2s}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+select,.smallbtn{border:1px solid #ddd7f2;background:white;color:var(--ink);padding:10px 12px;border-radius:12px;font:inherit;font-size:13px}
+.card-wrap{perspective:1200px}
+.card{height:350px;position:relative;cursor:pointer;transform-style:preserve-3d;transition:transform .55s}
+.card.flipped{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;border-radius:24px;padding:26px;backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:0 15px 35px #35305a15;border:1px solid #ffffffb8}
+.front{background:linear-gradient(145deg,#fff,#f5f1ff)}
+.back{transform:rotateY(180deg);background:linear-gradient(145deg,#f1fff9,#fff7f1);overflow:auto}
+.category{font-size:12px;font-weight:800;color:var(--purple);background:#ece8ff;padding:6px 10px;border-radius:99px;margin-bottom:20px}
+.term{font-size:clamp(27px,6vw,39px);font-weight:850;direction:ltr;unicode-bidi:isolate;line-height:1.25;margin:0 0 12px}
+.hint{color:var(--muted);font-size:14px}
+.tap{position:absolute;bottom:20px;color:var(--muted);font-size:12px}
+.meaning{font-size:clamp(22px,4.5vw,29px);font-weight:800;margin:0 0 20px;line-height:1.5}
+.example{direction:ltr;unicode-bidi:isolate;font-size:17px;line-height:1.6;margin:0 0 8px}
+.translation{font-size:14px;color:#55536b;line-height:1.7;margin:0}
+.controls{display:grid;grid-template-columns:1fr 1.3fr 1fr;gap:9px;margin:15px 0}
+button{cursor:pointer;border:0;border-radius:13px;padding:13px 10px;font:inherit;font-weight:750}
+.primary{background:var(--purple);color:white}
+.secondary{background:white;color:var(--ink);border:1px solid #e1dcf1}
+.master{display:flex;align-items:center;gap:9px;background:#ffffffb8;border:1px solid #e7e2f3;border-radius:14px;padding:12px 14px;font-size:14px}
+.master input{width:18px;height:18px;accent-color:var(--purple)}
+.footer{display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--muted);font-size:12px;margin-top:13px}
+.listbox{margin-top:18px;background:#ffffffa8;border:1px solid #e8e3f3;border-radius:18px;padding:15px}
+.listbox summary{cursor:pointer;font-weight:800}
+.wordlist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:12px}
+.worditem{text-align:right;border:1px solid #e9e4f4;background:white;border-radius:10px;padding:9px;font-size:13px;cursor:pointer}
+.worditem strong{direction:ltr;unicode-bidi:isolate;display:block;text-align:left;font-size:13px;margin-bottom:4px}
+.worditem.active{border-color:var(--purple);background:#f3f0ff}
+@media(max-width:520px){body{padding:13px}.card{height:370px}.face{padding:20px}.controls{grid-template-columns:1fr 1fr}.controls .primary{grid-column:1/-1;grid-row:1}.wordlist{grid-template-columns:1fr 1fr}header{display:block}.pill{display:inline-block;margin-top:8px}}
+</style>
+</head>
+<body>
+<main class="app">
+<header>
+ <div>
+  <div class="kicker">OXFORD WORD SKILLS ADVANCED · UNIT 03</div>
+  <h1 dir="ltr" style="text-align:right">I can use compounds</h1>
+  <div class="subtitle">فلش‌کارت تعاملی واژگان درس ۳ — روی کارت بزن تا معنی و مثال را ببینی.</div>
+ </div>
+ <div class="pill">OWSA-U03-FC · 31 cards</div>
+</header>
+<div class="stats">
+ <div class="stat" id="counter">کارت ۱ از ۳۱</div>
+ <div class="stat" id="knownCount">یادگرفته‌شده: ۰</div>
+ <div class="progress"><div class="bar" id="progressBar"></div></div>
+</div>
+<div class="filters">
+ <select id="categoryFilter" aria-label="فیلتر بخش">
+  <option value="all">همه بخش‌ها (۳۱)</option>
+  <option value="Nouns">A · Nouns</option>
+  <option value="Adjectives">B · Adjectives</option>
+  <option value="Spotlight">Spotlight · -minded</option>
+ </select>
+ <button class="smallbtn" id="shuffleBtn">ترتیب تصادفی</button>
+ <button class="smallbtn" id="resetBtn">شروع دوباره</button>
+</div>
+<div class="card-wrap">
+ <div class="card" id="card" role="button" tabindex="0" aria-label="نمایش پاسخ فلش کارت">
+  <section class="face front">
+   <div class="category" id="frontCategory">A · NOUNS</div>
+   <h2 class="term" id="term">drawing pin</h2>
+   <div class="hint">معنی فارسی و یک مثال انگلیسی را به یاد بیاور.</div>
+   <div class="tap">برای دیدن پاسخ، لمس کن ↻</div>
+  </section>
+  <section class="face back">
+   <div class="category" id="backCategory">A · NOUNS</div>
+   <p class="meaning" id="meaning">پونز</p>
+   <p class="example" id="example">I need a drawing pin for this map.</p>
+   <p class="translation" id="translation">برای این نقشه به یک پونز نیاز دارم.</p>
+   <div class="tap">برای برگشت، لمس کن ↻</div>
+  </section>
+ </div>
+</div>
+<div class="controls">
+ <button class="secondary" id="prevBtn">→ قبلی</button>
+ <button class="primary" id="showBtn">نمایش پاسخ</button>
+ <button class="secondary" id="nextBtn">بعدی ←</button>
+</div>
+<label class="master"><input type="checkbox" id="mastered"> این واژه را بلدم</label>
+<div class="footer"><span>میانبرها: ← قبلی · → بعدی · Space نمایش پاسخ</span><span id="position">۱ / ۳۱</span></div>
+<details class="listbox">
+ <summary>فهرست کامل ۳۱ فلش‌کارت</summary>
+ <div class="wordlist" id="wordlist"></div>
+</details>
+</main>
+<script>
+const cards = [
+{term:"drawing pin",cat:"Nouns",meaning:"پونز",example:"Use a drawing pin to attach the note.",translation:"برای نصب یادداشت از پونز استفاده کن."},
+{term:"paper clip",cat:"Nouns",meaning:"گیرهٔ کاغذ",example:"I used a paper clip to hold the pages together.",translation:"برای نگه‌داشتن برگه‌ها کنار هم از گیرهٔ کاغذ استفاده کردم."},
+{term:"barbed wire",cat:"Nouns",meaning:"سیم خاردار",example:"The field was surrounded by barbed wire.",translation:"دور زمین را سیم خاردار کشیده بودند."},
+{term:"nail polish",cat:"Nouns",meaning:"لاک ناخن",example:"She bought some red nail polish.",translation:"او مقداری لاک ناخن قرمز خرید."},
+{term:"driving licence",cat:"Nouns",meaning:"گواهینامهٔ رانندگی",example:"Have you got a driving licence?",translation:"گواهینامهٔ رانندگی داری؟"},
+{term:"birth certificate",cat:"Nouns",meaning:"گواهی تولد",example:"You may need your birth certificate.",translation:"ممکن است به گواهی تولدت نیاز داشته باشی."},
+{term:"spare part",cat:"Nouns",meaning:"قطعهٔ یدکی",example:"We need a spare part for the machine.",translation:"برای دستگاه به یک قطعهٔ یدکی نیاز داریم."},
+{term:"passer-by",cat:"Nouns",meaning:"رهگذر",example:"A passer-by helped us find the station.",translation:"یک رهگذر به ما کمک کرد ایستگاه را پیدا کنیم."},
+{term:"long weekend",cat:"Nouns",meaning:"آخر هفتهٔ طولانی؛ تعطیلات چندروزهٔ آخر هفته",example:"We went away for a long weekend.",translation:"برای تعطیلات چندروزهٔ آخر هفته به سفر رفتیم."},
+{term:"life expectancy",cat:"Nouns",meaning:"امید به زندگی؛ میانگین طول عمر",example:"Life expectancy has increased in many countries.",translation:"امید به زندگی در بسیاری از کشورها افزایش یافته است."},
+{term:"short cut / shortcut",cat:"Nouns",meaning:"میان‌بُر؛ راه کوتاه‌تر",example:"This path is a short cut to the station.",translation:"این مسیر میان‌بُری به ایستگاه است."},
+{term:"fancy dress",cat:"Nouns",meaning:"لباس مبدل؛ لباس مخصوص مهمانی با تم",example:"Everyone wore fancy dress to the party.",translation:"همه در مهمانی لباس مبدل پوشیده بودند."},
+{term:"nursery rhyme",cat:"Nouns",meaning:"شعر یا ترانهٔ کودکانه",example:"My grandmother taught me a nursery rhyme.",translation:"مادربزرگم یک شعر کودکانه به من یاد داد."},
+{term:"fruit / slot machine",cat:"Nouns",meaning:"دستگاه بازیِ جایزه‌دار یا سکه‌ای",example:"He put a coin into the slot machine.",translation:"او یک سکه داخل دستگاه انداخت."},
+{term:"next of kin",cat:"Nouns",meaning:"نزدیک‌ترین خویشاوند؛ خویشاوندِ ثبت‌شده در اسناد",example:"Please give the name of your next of kin.",translation:"لطفاً نام نزدیک‌ترین خویشاوندت را وارد کن."},
+{term:"last-minute",cat:"Adjectives",meaning:"لحظه‌آخری؛ انجام‌شده در آخرین لحظات",example:"It was a last-minute decision.",translation:"این یک تصمیم لحظه‌آخری بود."},
+{term:"built-up",cat:"Adjectives",meaning:"دارای ساختمان‌های زیاد؛ ساخته‌وسازشده",example:"The area is now heavily built-up.",translation:"این منطقه اکنون ساخت‌وساز زیادی دارد."},
+{term:"absent-minded",cat:"Adjectives",meaning:"حواس‌پرت؛ فراموش‌کار",example:"I was absent-minded and left my keys at home.",translation:"حواسم پرت بود و کلیدهایم را در خانه جا گذاشتم."},
+{term:"panic-stricken",cat:"Adjectives",meaning:"وحشت‌زده؛ دچار هراس شدید",example:"She was panic-stricken when she lost her passport.",translation:"وقتی گذرنامه‌اش را گم کرد، وحشت‌زده شد."},
+{term:"thick-skinned",cat:"Adjectives",meaning:"پوست‌کلفت؛ کم‌تأثیرپذیر از انتقاد",example:"You need to be thick-skinned in this job.",translation:"در این شغل باید پوست‌کلفت باشی."},
+{term:"off-putting",cat:"Adjectives",meaning:"زننده؛ دلسردکننده؛ باعث دل‌زدگی",example:"His rude manner was off-putting.",translation:"رفتار بی‌ادبانه‌اش دل‌زننده بود."},
+{term:"tongue-tied",cat:"Adjectives",meaning:"از خجالت یا اضطراب قادر به حرف‌زدن نبودن",example:"I became tongue-tied when I met her.",translation:"وقتی او را دیدم، از خجالت زبانم بند آمد."},
+{term:"worn out",cat:"Adjectives",meaning:"کاملاً خسته؛ فرسوده",example:"I'm worn out after a long day.",translation:"بعد از یک روز طولانی کاملاً خسته‌ام."},
+{term:"hard-wearing",cat:"Adjectives",meaning:"بادوام؛ مقاوم در برابر فرسودگی",example:"These shoes are hard-wearing.",translation:"این کفش‌ها بادوام‌اند."},
+{term:"narrow-minded",cat:"Adjectives",meaning:"کوته‌فکر؛ ناپذیرای دیدگاه‌های متفاوت",example:"He is too narrow-minded to consider other views.",translation:"او آن‌قدر کوته‌فکر است که دیدگاه‌های دیگر را در نظر نمی‌گیرد."},
+{term:"never-ending",cat:"Adjectives",meaning:"بی‌پایان؛ تمام‌نشدنی",example:"It felt like a never-ending meeting.",translation:"جلسه انگار تمام‌شدنی نبود."},
+{term:"bad-tempered",cat:"Adjectives",meaning:"بداخلاق؛ تندخو",example:"He gets bad-tempered when he's tired.",translation:"وقتی خسته است بداخلاق می‌شود."},
+{term:"open-minded",cat:"Spotlight",meaning:"روشن‌فکر؛ پذیرا نسبت به ایده‌ها و نظرهای متفاوت",example:"Try to be open-minded about new ideas.",translation:"سعی کن نسبت به ایده‌های جدید پذیرا باشی."},
+{term:"single-minded",cat:"Spotlight",meaning:"هدف‌محور؛ با تمرکز و عزم راسخ",example:"She is single-minded about achieving her goal.",translation:"او برای رسیدن به هدفش تمرکز و عزم راسخی دارد."},
+{term:"absent-minded",cat:"Spotlight",meaning:"حواس‌پرت؛ غافل از اطراف یا فراموش‌کار",example:"My absent-minded uncle often loses his glasses.",translation:"عموی حواس‌پرت من اغلب عینکش را گم می‌کند."},
+{term:"narrow-minded",cat:"Spotlight",meaning:"کوته‌فکر؛ محدود در پذیرش عقاید دیگران",example:"A narrow-minded person may reject unfamiliar ideas.",translation:"یک فرد کوته‌فکر ممکن است ایده‌های ناآشنا را رد کند."}
+];
+let filtered = cards.map((_,i)=>i), index=0, mastered=new Set(), flipped=false;
+const $=id=>document.getElementById(id);
+const faNum=n=>String(n).replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[d]);
+function catLabel(cat){return cat==="Nouns"?"A · NOUNS":cat==="Adjectives"?"B · ADJECTIVES":"SPOTLIGHT · -MINDED"}
+function render(){
+ if(!filtered.length)return;
+ index=Math.max(0,Math.min(index,filtered.length-1));
+ const c=cards[filtered[index]];
+ $("term").textContent=c.term;$("meaning").textContent=c.meaning;$("example").textContent=c.example;$("translation").textContent=c.translation;
+ $("frontCategory").textContent=catLabel(c.cat);$("backCategory").textContent=catLabel(c.cat);
+ $("card").classList.toggle("flipped",flipped);$("showBtn").textContent=flipped?"برگشت به روی کارت":"نمایش پاسخ";
+ $("mastered").checked=mastered.has(filtered[index]);
+ $("counter").textContent=`کارت ${faNum(index+1)} از ${faNum(filtered.length)}`;
+ $("position").textContent=`${faNum(index+1)} / ${faNum(filtered.length)}`;
+ $("knownCount").textContent=`یادگرفته‌شده: ${faNum([...mastered].filter(i=>filtered.includes(i)).length)}`;
+ $("progressBar").style.width=`${((index+1)/filtered.length)*100}%`;
+ document.querySelectorAll(".worditem").forEach((el)=>el.classList.toggle("active",Number(el.dataset.index)===filtered[index]));
+}
+function makeList(){
+ $("wordlist").innerHTML="";
+ cards.forEach((c,i)=>{const b=document.createElement("button");b.className="worditem";b.dataset.index=i;b.innerHTML=`<strong>${c.term}</strong><span>${c.meaning}</span>`;b.onclick=()=>{const f=filtered.indexOf(i);if(f>=0){index=f;flipped=false;render()}else{$("categoryFilter").value="all";applyFilter();index=filtered.indexOf(i);flipped=false;render()}};$("wordlist").appendChild(b)});
+}
+function applyFilter(){const val=$("categoryFilter").value;filtered=cards.map((c,i)=>({c,i})).filter(x=>val==="all"||x.c.cat===val).map(x=>x.i);index=0;flipped=false;render()}
+function move(n){index=(index+n+filtered.length)%filtered.length;flipped=false;render()}
+$("card").onclick=()=>{flipped=!flipped;render()};
+$("card").onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();flipped=!flipped;render()}};
+$("showBtn").onclick=()=>{flipped=!flipped;render()};
+$("prevBtn").onclick=()=>move(-1);$("nextBtn").onclick=()=>move(1);
+$("mastered").onchange=e=>{const id=filtered[index];e.target.checked?mastered.add(id):mastered.delete(id);render()};
+$("categoryFilter").onchange=applyFilter;
+$("shuffleBtn").onclick=()=>{for(let i=filtered.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[filtered[i],filtered[j]]=[filtered[j],filtered[i]]}index=0;flipped=false;render()};
+$("resetBtn").onclick=()=>{mastered.clear();filtered=cards.map((_,i)=>i);$("categoryFilter").value="all";index=0;flipped=false;render()};
+document.addEventListener("keydown",e=>{if(["INPUT","SELECT","BUTTON"].includes(document.activeElement.tagName))return;if(e.key==="ArrowLeft")move(-1);if(e.key==="ArrowRight")move(1);if(e.code==="Space"){e.preventDefault();flipped=!flipped;render()}});
+makeList();render();
+</script>
+</body>
+</html>
